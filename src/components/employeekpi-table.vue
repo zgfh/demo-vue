@@ -3,16 +3,20 @@
     <div class="toolbar">
       <el-form @submit.native.prevent inline>
         <el-form-item>
-          <el-input v-model="search" placeholder="请输入名称进行搜索" clearable />
+          <el-input v-model="search" placeholder="请输入姓名进行搜索" clearable />
         </el-form-item>
       </el-form>
       <el-button @click="handleCreate" type="success">新增</el-button>
     </div>
     <el-table :data="tableData" border>
       <el-table-column type="index" />
-      <el-table-column label="部门编号" prop="id"></el-table-column>
-      <el-table-column label="部门名称" prop="name"></el-table-column>
-      <el-table-column label="部门经理" prop="manager"></el-table-column>
+      <el-table-column label="流水号" prop="id"></el-table-column>
+      <el-table-column label="员工编号" prop="employeeid"></el-table-column>
+      <el-table-column label="员工姓名" prop="name"></el-table-column>
+      <el-table-column label="评价人" prop="leader"></el-table-column>
+      <el-table-column label="当年考核值" prop="kpi"></el-table-column>
+      <el-table-column label="评价意见" prop="comments"></el-table-column>
+      <el-table-column label="考核时间" prop="check_date"></el-table-column>
       <el-table-column align="right">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -26,13 +30,13 @@
       </el-table-column>
     </el-table>
 
-    <department-dialog
-      :visible.sync="departmentFormDialog.visible"
-      :data="departmentFormDialog.data"
-      :lastId="departmentList.length ? departmentList[departmentList.length - 1].id : 0"
+    <staff-dialog
+      :visible.sync="staffFormDialog.visible"
+      :data="staffFormDialog.data"
+      :lastId="staffList.length ? staffList[staffList.length - 1].id : 0"
       @create="onCreate"
       @edit="onEdit"
-    ></department-dialog>
+    ></staff-dialog>
   </div>
 </template>
 
@@ -52,14 +56,14 @@
 </style>
 
 <script>
-import DepartmentDialog from "./department-dialog.vue";
+import StaffDialog from "./staff-dialog.vue";
 export default {
   components: {
-    DepartmentDialog,
+    StaffDialog,
   },
   computed: {
     tableData() {
-      return this.departmentList.filter(
+      return this.staffList.filter(
         (data) =>
           !this.search ||
           data.name.toLowerCase().includes(this.search.toLowerCase())
@@ -68,51 +72,50 @@ export default {
   },
   data() {
     return {
-      departmentFormDialog: {
+      staffFormDialog: {
         visible: false,
         data: {},
       },
-      departmentList: [
+     
+      staffList: [
         {
           id: 1,
-          name: "开发部",
-          manager: "许昌",
+          employeeid: 23,
+          name: "李娟",
+          leader: "王小虎",
+          kpi: "1",
+          comments: "长宁区新渔路144号",
+          check_date: "2023-01-01 11:11:11",
         },
         {
-          id: 2,
-          name: "宣传部",
-          manager: "玛丽",
-        },
-        {
-          id: 3,
-          name: "销售部",
-          manager: "韩愈",
-        },
-        {
-          id: 4,
-          name: "运营部",
-          manager: "陈宇",
-        },
+          id: 1,
+          employeeid: 23,
+          name: "李娟",
+          leader: "王小虎",
+          kpi: "1",
+          comments: "长宁区新渔路144号",
+          check_date: "2023-01-01 11:11:11",
+        }
       ],
       search: "",
     };
   },
   methods: {
     onCreate(data) {
-      this.departmentList = [...this.departmentList, data];
+      this.staffList = [...this.staffList, data];
     },
     onEdit(data) {
-      const index = this.departmentList.findIndex((item) => item.id === data.id);
-      this.departmentList.splice(index, 1, data);
+      const index = this.staffList.findIndex((item) => item.id === data.id);
+      this.staffList.splice(index, 1, data);
     },
     handleCreate() {
-      this.departmentFormDialog = {
+      this.staffFormDialog = {
         visible: true,
         data: {},
       };
     },
     handleEdit(row) {
-      this.departmentFormDialog = {
+      this.staffFormDialog = {
         visible: true,
         data: Object.assign({}, row),
       };
@@ -120,7 +123,7 @@ export default {
     async handleDelete(index) {
       try {
         await this.$confirm("您是否确认删除？", "提示", { type: "warning" });
-        this.departmentList.splice(index, 1);
+        this.staffList.splice(index, 1);
       } catch (err) {
         console.log(err);
       }

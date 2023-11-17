@@ -10,10 +10,11 @@
     </div>
     <el-table :data="tableData" border>
       <el-table-column type="index" />
+      <el-table-column label="编号" prop="id"></el-table-column>
       <el-table-column label="姓名" prop="name"></el-table-column>
-      <el-table-column label="性别" prop="sex"></el-table-column>
-      <el-table-column label="年龄" prop="age"></el-table-column>
-      <el-table-column label="地址" prop="address"></el-table-column>
+      <el-table-column label="所在部门" prop="dept"></el-table-column>
+      <el-table-column label="职位" prop="position"></el-table-column>
+      <el-table-column label="薪资" prop="salary"></el-table-column>
       <el-table-column align="right">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -76,32 +77,18 @@ export default {
       staffList: [
         {
           id: 1,
-          age: 23,
-          sex: "男",
           name: "王小虎",
-          address: "长宁区新渔路144号",
+          salary: 8000,
+          dept: "IT",
+          position: "IT经理",
         },
         {
-          id: 2,
-          age: 28,
-          sex: "女",
+          id: 1,
           name: "李娟",
-          address: "上海市长宁区淞虹路661号",
-        },
-        {
-          id: 3,
-          age: 34,
-          sex: "男",
-          name: "张豪",
-          address: "天山西路438号",
-        },
-        {
-          id: 4,
-          age: 25,
-          sex: "女",
-          name: "田艳",
-          address: "上海市嘉定区新郁路817号",
-        },
+          salary: 8000,
+          dept: "IT",
+          position: "工程师",
+        }
       ],
       search: "",
     };

@@ -2,15 +2,18 @@ import Vue from 'vue'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/en'
+//import locale from 'element-ui/lib/locale/lang/en'
 
 import Element from 'element-ui'
+
+import router from './router'
+import store from './store'
 
 import App from './App'
 
 
 
-Vue.use(directive)
+//Vue.use(directive)
 
 Vue.use(Element, {
   size: 'medium' // set element-ui default size
